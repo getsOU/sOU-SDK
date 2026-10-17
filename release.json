@@ -1,0 +1,23 @@
+﻿{
+    "schemaVersion":  1,
+    "sdkVersion":  "0.2.0-preview.3",
+    "commit":  "3dd0dadcd1ca7093f1862286d137656369fd9fbe",
+    "packages":  [
+                     {
+                         "file":  "SOU.Live.Contracts.0.2.0-preview.3.nupkg",
+                         "sha256":  "26F6ED3B251A37902C347DBC39741E3CDF32180B000DC4BC508136952A875929"
+                     },
+                     {
+                         "file":  "SOU.Hud.Sdk.0.2.0-preview.3.nupkg",
+                         "sha256":  "2B661ED4821A842E0EBD5A82A7DD1607C63462B1420E947997E4B1942628A4AB"
+                     },
+                     {
+                         "file":  "SOU.Hud.Tool.0.2.0-preview.3.nupkg",
+                         "sha256":  "961ADA5AD4A5AD38756FFB770302A14D64CA2008DEBF6ACB11B25ABAC065C4F1"
+                     },
+                     {
+                         "file":  "SOU.Hud.Templates.0.2.0-preview.3.nupkg",
+                         "sha256":  "E213F33D8A2127D86C2331C3F21AADAA6C17AECEFA85493C8C98A9A6DB65E1F0"
+                     }
+                 ]
+}
