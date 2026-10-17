@@ -1,0 +1,67 @@
+name: Publish sOU HUD SDK
+
+on:
+  workflow_dispatch:
+    inputs:
+      sdk_version:
+        description: SDK version recorded in release.json
+        required: true
+        type: string
+      source_commit:
+        description: Full GitLab source commit recorded in release.json
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sou-hud-sdk-nuget
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    if: github.ref == 'refs/heads/main' && github.repository == 'getsOU/sOU-SDK'
+    runs-on: ubuntu-latest
+    env:
+      EXPECTED_SDK_VERSION: ${{ inputs.sdk_version }}
+      EXPECTED_SOURCE_COMMIT: ${{ inputs.source_commit }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - name: Validate committed release artifacts
+        shell: pwsh
+        run: ./scripts/Publish.ps1 -ValidateOnly
+
+  publish:
+    needs: validate
+    if: github.ref == 'refs/heads/main' && github.repository == 'getsOU/sOU-SDK'
+    runs-on: ubuntu-latest
+    environment: nuget
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      EXPECTED_SDK_VERSION: ${{ inputs.sdk_version }}
+      EXPECTED_SOURCE_COMMIT: ${{ inputs.source_commit }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
+        with:
+          dotnet-version: 10.0.x
+      - name: Revalidate before requesting publishing credentials
+        shell: pwsh
+        run: ./scripts/Publish.ps1 -ValidateOnly
+      - name: Obtain temporary NuGet publishing key
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+        id: login
+        with:
+          user: hheinle
+      - name: Publish the four validated packages
+        shell: pwsh
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: ./scripts/Publish.ps1
