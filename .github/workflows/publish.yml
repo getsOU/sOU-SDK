@@ -11,6 +11,15 @@ on:
         description: Full GitLab source commit recorded in release.json
         required: true
         type: string
+      publisher_commit:
+        description: Full commit in this repository containing the release artifacts
+        required: true
+        type: string
+      validation_only:
+        description: Validate the handoff without requesting NuGet credentials or publishing
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -18,26 +27,44 @@ permissions:
 concurrency:
   group: sou-hud-sdk-nuget
   cancel-in-progress: false
+  queue: max
 
 jobs:
   validate:
     if: github.ref == 'refs/heads/main' && github.repository == 'getsOU/sOU-SDK'
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     env:
       EXPECTED_SDK_VERSION: ${{ inputs.sdk_version }}
       EXPECTED_SOURCE_COMMIT: ${{ inputs.source_commit }}
+      EXPECTED_PUBLISHER_COMMIT: ${{ inputs.publisher_commit }}
+      ACTUAL_PUBLISHER_COMMIT: ${{ github.sha }}
     steps:
+      - name: Require the exact publication commit
+        shell: pwsh
+        run: |
+          if ($env:EXPECTED_PUBLISHER_COMMIT -cnotmatch '\A[0-9a-f]{40}\z' -or $env:EXPECTED_PUBLISHER_COMMIT -cne $env:ACTUAL_PUBLISHER_COMMIT) {
+            throw 'The workflow must run at the exact requested publication commit.'
+          }
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
+          ref: ${{ inputs.publisher_commit }}
           persist-credentials: false
+      - name: Verify approved publisher code
+        shell: pwsh
+        run: |
+          if ((Get-FileHash -LiteralPath ./scripts/Publish.ps1 -Algorithm SHA256).Hash -cne '2BBCA1037DE4C9A80970F3E1D868E280168A1E96D979B243540A4BA33E34CC5C') {
+            throw 'Publisher code changed. A maintainer must review it and update the workflow pin.'
+          }
       - name: Validate committed release artifacts
         shell: pwsh
         run: ./scripts/Publish.ps1 -ValidateOnly
 
   publish:
     needs: validate
-    if: github.ref == 'refs/heads/main' && github.repository == 'getsOU/sOU-SDK'
+    if: github.ref == 'refs/heads/main' && github.repository == 'getsOU/sOU-SDK' && !inputs.validation_only
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: nuget
     permissions:
       contents: read
@@ -45,10 +72,25 @@ jobs:
     env:
       EXPECTED_SDK_VERSION: ${{ inputs.sdk_version }}
       EXPECTED_SOURCE_COMMIT: ${{ inputs.source_commit }}
+      EXPECTED_PUBLISHER_COMMIT: ${{ inputs.publisher_commit }}
+      ACTUAL_PUBLISHER_COMMIT: ${{ github.sha }}
     steps:
+      - name: Require the exact publication commit
+        shell: pwsh
+        run: |
+          if ($env:EXPECTED_PUBLISHER_COMMIT -cnotmatch '\A[0-9a-f]{40}\z' -or $env:EXPECTED_PUBLISHER_COMMIT -cne $env:ACTUAL_PUBLISHER_COMMIT) {
+            throw 'The workflow must run at the exact requested publication commit.'
+          }
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
         with:
+          ref: ${{ inputs.publisher_commit }}
           persist-credentials: false
+      - name: Verify approved publisher code
+        shell: pwsh
+        run: |
+          if ((Get-FileHash -LiteralPath ./scripts/Publish.ps1 -Algorithm SHA256).Hash -cne '2BBCA1037DE4C9A80970F3E1D868E280168A1E96D979B243540A4BA33E34CC5C') {
+            throw 'Publisher code changed. A maintainer must review it and update the workflow pin.'
+          }
       - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
         with:
           dotnet-version: 10.0.x
