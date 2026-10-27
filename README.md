@@ -6,7 +6,7 @@ SDK 0.3.0-preview.1 owns the shared game, panel, view and options session, selec
 
 This SDK release contains five matching packages, including `SOU.Hud.Sdk.Blazor`. Historical preview releases retain their original package sets and bytes.
 
-Start with the [HUD author guide](https://www.getsou.app/docs/hud-entwicklung), which explains creating, editing, packaging and opening your HUD in sOU. The Web starter needs no npm build step; the Blazor starter uses .NET 10.
+Start with the [HUD author guide](https://www.getsou.app/docs/hud-entwicklung), which explains creating, editing, packaging and opening your HUD in sOU. The Web starter needs no npm build step; use .NET SDK 10.0.403 or a later .NET 10 servicing SDK, including runtime 10.0.14 or later, for author tools and Blazor.
 
 | Package | Purpose |
 | --- | --- |
