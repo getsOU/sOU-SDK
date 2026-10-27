@@ -25,9 +25,9 @@ try {
     if ($manifest.schemaVersion -ne 1 -or $manifest.sdkVersion -cne $expectedVersion -or $manifest.commit -cne $expectedCommit) {
         throw 'Release schema, SDK version or source commit does not match the requested release.'
     }
-    $ids = @('SOU.Live.Contracts', 'SOU.Hud.Sdk', 'SOU.Hud.Tool', 'SOU.Hud.Templates')
+    $ids = @('SOU.Live.Contracts', 'SOU.Hud.Sdk', 'SOU.Hud.Sdk.Blazor', 'SOU.Hud.Tool', 'SOU.Hud.Templates')
     $records = @($manifest.packages)
-    if ($records.Count -ne $ids.Count) { throw 'The release manifest must contain exactly the four SDK packages.' }
+    if ($records.Count -ne $ids.Count) { throw 'The release manifest must contain exactly the five SDK packages.' }
     foreach ($record in $records) {
         if ($record.file -isnot [string] -or $record.file -match '[\\/]' -or $record.file.StartsWith('.')) {
             throw 'Unsafe package filename in release manifest.'
@@ -35,7 +35,7 @@ try {
     }
     $files = @(Get-ChildItem -LiteralPath $packageDirectory -Force)
     if ($files.Count -ne $ids.Count -or @($files | Where-Object { $_.PSIsContainer -or $_.Extension -cne '.nupkg' }).Count -ne 0) {
-        throw 'The packages folder must contain exactly four NuGet package files.'
+        throw 'The packages folder must contain exactly five NuGet package files.'
     }
     $validated = @()
     foreach ($id in $ids) {
@@ -92,7 +92,7 @@ try {
         & dotnet nuget push $file --source 'https://api.nuget.org/v3/index.json'
         if ($LASTEXITCODE -ne 0) { throw 'NuGet upload failed. Check accepted packages before retrying; published versions cannot be replaced.' }
     }
-    Write-Output 'All four packages submitted. Check NuGet validation, indexing and sOU ownership.'
+    Write-Output 'All five packages submitted. Check NuGet validation, indexing and sOU ownership.'
 } finally {
     if (-not $ValidateOnly) { $env:NUGET_API_KEY = $null }
 }

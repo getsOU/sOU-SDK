@@ -53,7 +53,7 @@ jobs:
       - name: Verify approved publisher code
         shell: pwsh
         run: |
-          if ((Get-FileHash -LiteralPath ./scripts/Publish.ps1 -Algorithm SHA256).Hash -cne '2BBCA1037DE4C9A80970F3E1D868E280168A1E96D979B243540A4BA33E34CC5C') {
+          if ((Get-FileHash -LiteralPath ./scripts/Publish.ps1 -Algorithm SHA256).Hash -cne '798446F11E11E9AFFC602761A44E194B405D98CDF741ED7863DFB31D465F6044') {
             throw 'Publisher code changed. A maintainer must review it and update the workflow pin.'
           }
       - name: Validate committed release artifacts
@@ -88,7 +88,7 @@ jobs:
       - name: Verify approved publisher code
         shell: pwsh
         run: |
-          if ((Get-FileHash -LiteralPath ./scripts/Publish.ps1 -Algorithm SHA256).Hash -cne '2BBCA1037DE4C9A80970F3E1D868E280168A1E96D979B243540A4BA33E34CC5C') {
+          if ((Get-FileHash -LiteralPath ./scripts/Publish.ps1 -Algorithm SHA256).Hash -cne '798446F11E11E9AFFC602761A44E194B405D98CDF741ED7863DFB31D465F6044') {
             throw 'Publisher code changed. A maintainer must review it and update the workflow pin.'
           }
       - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 # v5
@@ -102,7 +102,7 @@ jobs:
         id: login
         with:
           user: hheinle
-      - name: Publish the four validated packages
+      - name: Publish the five validated packages
         shell: pwsh
         env:
           NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
