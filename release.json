@@ -1,23 +1,27 @@
 ﻿{
     "schemaVersion":  1,
-    "sdkVersion":  "0.2.0-preview.4",
-    "commit":  "e23e66d7292aa6bcfdfcdd37204a05ffba532608",
+    "sdkVersion":  "0.3.0-preview.2",
+    "commit":  "8d121e36c5222c2d08e1787befc63cc862953b21",
     "packages":  [
                      {
-                         "file":  "SOU.Live.Contracts.0.2.0-preview.4.nupkg",
-                         "sha256":  "4F31B9EAE55E3D0CCAE32989380DB1DC77C3AD32CC68F16D2F404B87AFA1ECA8"
+                         "file":  "SOU.Live.Contracts.0.3.0-preview.2.nupkg",
+                         "sha256":  "51E744813CA0CCB9264358746A69F2E5EF291800806AA2030B24DFF585A92544"
                      },
                      {
-                         "file":  "SOU.Hud.Sdk.0.2.0-preview.4.nupkg",
-                         "sha256":  "16D104A522FDE4066759E5CF6042A6E61AC476BAD28083833AB326ABEBA11078"
+                         "file":  "SOU.Hud.Sdk.0.3.0-preview.2.nupkg",
+                         "sha256":  "AB135CF33C3621BFD52233676917FDE760585B7FDE973E32C6D1421329AC6E0C"
                      },
                      {
-                         "file":  "SOU.Hud.Tool.0.2.0-preview.4.nupkg",
-                         "sha256":  "9C43AB075F8F359AC1EA31277F3C1D566E12499869BBEA3AF522F7E1B7A55088"
+                         "file":  "SOU.Hud.Sdk.Blazor.0.3.0-preview.2.nupkg",
+                         "sha256":  "4A44B14D30A1A08C6EFC86DF25B8667CF41870985F4A799D83F240F9A87F2FA7"
                      },
                      {
-                         "file":  "SOU.Hud.Templates.0.2.0-preview.4.nupkg",
-                         "sha256":  "83742BF4B18D99BBABD40D92684B7CBB6B557B669815047AB6DFB573F225BBA1"
+                         "file":  "SOU.Hud.Tool.0.3.0-preview.2.nupkg",
+                         "sha256":  "6EA44AB7F56C4F0E8CF276F2F038184D615B85249332593924AE6F8573EDA1E6"
+                     },
+                     {
+                         "file":  "SOU.Hud.Templates.0.3.0-preview.2.nupkg",
+                         "sha256":  "3CE0270E2BD72F14E3C5EC9AC0648DE7108ED5254B9112F9B31B0CE2F9CCBCC3"
                      }
                  ]
 }
