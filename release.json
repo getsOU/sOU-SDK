@@ -1,27 +1,27 @@
 ﻿{
     "schemaVersion":  1,
-    "sdkVersion":  "0.3.0-preview.2",
-    "commit":  "8d121e36c5222c2d08e1787befc63cc862953b21",
+    "sdkVersion":  "0.3.0-preview.3",
+    "commit":  "da77523e35f2d1ec3a6f16ff73eed33e6f4f4dce",
     "packages":  [
                      {
-                         "file":  "SOU.Live.Contracts.0.3.0-preview.2.nupkg",
-                         "sha256":  "51E744813CA0CCB9264358746A69F2E5EF291800806AA2030B24DFF585A92544"
+                         "file":  "SOU.Live.Contracts.0.3.0-preview.3.nupkg",
+                         "sha256":  "455E6114698037FA621F9A29F7BB7D597D500D49F4DFDBD67861A1B2A2945E36"
                      },
                      {
-                         "file":  "SOU.Hud.Sdk.0.3.0-preview.2.nupkg",
-                         "sha256":  "AB135CF33C3621BFD52233676917FDE760585B7FDE973E32C6D1421329AC6E0C"
+                         "file":  "SOU.Hud.Sdk.0.3.0-preview.3.nupkg",
+                         "sha256":  "8BA7F6FD73D3BE017FEA6FD6F8218A6A12525937D641420A39A52C09E7D8E511"
                      },
                      {
-                         "file":  "SOU.Hud.Sdk.Blazor.0.3.0-preview.2.nupkg",
-                         "sha256":  "4A44B14D30A1A08C6EFC86DF25B8667CF41870985F4A799D83F240F9A87F2FA7"
+                         "file":  "SOU.Hud.Sdk.Blazor.0.3.0-preview.3.nupkg",
+                         "sha256":  "3E87E1762ED6DCD22FBE47234643FF42E9F71D4B5AD7F04F477FCFD8BBE13665"
                      },
                      {
-                         "file":  "SOU.Hud.Tool.0.3.0-preview.2.nupkg",
-                         "sha256":  "6EA44AB7F56C4F0E8CF276F2F038184D615B85249332593924AE6F8573EDA1E6"
+                         "file":  "SOU.Hud.Tool.0.3.0-preview.3.nupkg",
+                         "sha256":  "FA443B0546B5F9DA3B20F31AC2DDC1AB474D9F741BF96A10D319C12C0A155080"
                      },
                      {
-                         "file":  "SOU.Hud.Templates.0.3.0-preview.2.nupkg",
-                         "sha256":  "3CE0270E2BD72F14E3C5EC9AC0648DE7108ED5254B9112F9B31B0CE2F9CCBCC3"
+                         "file":  "SOU.Hud.Templates.0.3.0-preview.3.nupkg",
+                         "sha256":  "4F8D8DAF7D322A34F81D36394693421A62093658C9695F45CA5C0C70EA7E13C5"
                      }
                  ]
 }
