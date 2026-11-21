@@ -2,23 +2,30 @@
 
 Build your own CS2 HUD with HTML/CSS/JavaScript or C#/Blazor WebAssembly. The sOU HUD SDK provides processed game and match data, editable HUD panels, starter projects and tools for creating installable `.souhud` packages.
 
-SDK 0.3.0-preview.3 owns the shared game, panel, view and options session, selective subscriptions, connection recovery and server-time helpers. HUD code selects the data it renders. Existing v2 HUDs remain supported.
+HUD SDK 0.3.0 is the stable release for HUD API v3. One session supplies game data, panels, views and options. HUDs subscribe to the values they render. Existing v2 HUDs remain supported.
 
-Delayed Start Time is available through `ManagedMatch.DelayedStartsAt` and the C#/JavaScript helpers `HudCountdown.MatchStartRemaining` and `matchStartRemaining`. `EffectiveStartsAt` selects the delayed time before the regular `StartsAt` without adding a JSON field. Desktop 0.3.38 or later supplies the optional delayed time; older senders retain the regular start fallback. Existing HUDs must explicitly select the delayed time for their displays.
+The recording API exposes round history and combat data. Kill-feed entries can include the previous traded kill. For match countdowns, `HudCountdown.MatchStartRemaining` (C#) and `matchStartRemaining` (JavaScript) select `ManagedMatch.DelayedStartsAt` when set and fall back to `StartsAt`.
 
-This SDK release contains five matching packages, including `SOU.Hud.Sdk.Blazor`. Historical preview releases retain their original package sets and bytes.
+With sOU Desktop 0.4.0 or later, switching tabs or hiding a still-loaded OBS browser source preserves HUD components and playercam connections. The HUD clock synchronizes with the host when the view returns. To keep the same document across scenes, disable the OBS options that shut down the hidden source or refresh it when the scene becomes active.
 
 Start with the [HUD author guide](https://www.getsou.app/docs/hud-entwicklung), which explains creating, editing, packaging and opening your HUD in sOU. The Web starter needs no npm build step; use .NET SDK 10.0.403 or a later .NET 10 servicing SDK, including runtime 10.0.14 or later, for author tools and Blazor.
 
 | Package | Purpose |
 | --- | --- |
-| [SOU.Hud.Templates](https://www.nuget.org/packages/SOU.Hud.Templates) | Web and Blazor starter projects for `dotnet new`. |
-| [SOU.Hud.Tool](https://www.nuget.org/packages/SOU.Hud.Tool) | The `sou-hud` command for packaging and validation. |
-| [SOU.Hud.Sdk](https://www.nuget.org/packages/SOU.Hud.Sdk) | C# session, validated object graph, selectors, options and panel helpers. |
-| [SOU.Hud.Sdk.Blazor](https://www.nuget.org/packages/SOU.Hud.Sdk.Blazor) | Official v3 Blazor host, selective regions, render clock and optional diagnostics. |
-| [SOU.Live.Contracts](https://www.nuget.org/packages/SOU.Live.Contracts) | Read-only data models used by the C# client. |
+| [SOU.Hud.Templates](https://www.nuget.org/packages/SOU.Hud.Templates/0.3.0) | Web and Blazor starter projects for `dotnet new`. |
+| [SOU.Hud.Tool](https://www.nuget.org/packages/SOU.Hud.Tool/0.3.0) | The `sou-hud` command for packaging and validation. |
+| [SOU.Hud.Sdk](https://www.nuget.org/packages/SOU.Hud.Sdk/0.3.0) | C# session, validated object graph, selectors, options and panel helpers. |
+| [SOU.Hud.Sdk.Blazor](https://www.nuget.org/packages/SOU.Hud.Sdk.Blazor/0.3.0) | Official v3 Blazor host, selective regions, render clock and optional diagnostics. |
+| [SOU.Live.Contracts](https://www.nuget.org/packages/SOU.Live.Contracts/0.3.0) | Read-only data models used by the C# client. |
 
-The package links show the publication status and available versions on NuGet.org. SDK 0.3.0-preview.3 contains five matching packages; historical previews retain their original package sets. SDK package versions, your own HUD package version and HUD protocol versions 2 and 3 are separate values.
+Install all sOU SDK dependencies at version `0.3.0`. To install the packaging tool and start a Web HUD in a new directory:
+
+```sh
+dotnet tool install SOU.Hud.Tool --version 0.3.0 --tool-path ./tools
+./tools/sou-hud init web ./MyWebHud --id my-web-hud
+```
+
+Use `init blazor` for a Blazor WebAssembly HUD. SDK versions, HUD package versions and HUD API versions are independent.
 
 [Game and match API](https://www.getsou.app/docs/hud-api) · [Data type reference](https://www.getsou.app/docs/hud-vertragstypen) · [HUD panels](https://www.getsou.app/docs/hud-panel-referenz) · [Package format](https://www.getsou.app/docs/hud-paketformat)
 
